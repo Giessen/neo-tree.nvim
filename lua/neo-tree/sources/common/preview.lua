@@ -400,6 +400,17 @@ Preview.toggle = function(state)
   if toggle_state then
     Preview.hide()
   else
+    -- @Added. For some reason, the neo-tree buffer is saved locally with a name like 'neo-tree filesystem [1]'. 
+    -- This will confuse the previewer window handling and should be prevented to get previewed.
+    local buf_ft = vim.bo[buf].filetype
+    local buf_bt = vim.bo[buf].buftype
+    
+    if buf_ft == "neo-tree" or buf_bt == "nofile" then
+      vim.notify("Neo-tree preview skipped: internal buffer", vim.log.levels.INFO)
+      return -- skip preview for Neo-tree internal buffers
+    end
+    --
+    
     Preview.show(state)
     if instance and instance.active then
       toggle_state = true
