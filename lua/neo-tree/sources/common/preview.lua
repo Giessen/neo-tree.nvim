@@ -114,6 +114,7 @@ end
 ---@param end_pos table? The (0-indexed) ending position of the previewed text. May be absent
 function Preview:preview(bufnr, start_pos, end_pos)
   -- @Added. For some reason, the neo-tree buffer is saved locally with a name like 'neo-tree filesystem [1]'. 
+  -- Don't preview this kind of file.
   local buf_ft = vim.bo[bufnr].filetype
   local buf_bt = vim.bo[bufnr].buftype
   
@@ -308,13 +309,6 @@ end
 function Preview:setBuffer(bufnr)
   local eventignore = vim.opt.eventignore
   vim.opt.eventignore:append("BufEnter,BufWinEnter")
-
-  -- @Added. Ensure that the preview buffer has a unique name to avoid conflict with outline.nvim
-  local buffer_name = vim.api.nvim_buf_get_name(bufnr)
-  if buffer_name == "" then
-    -- Set a unique name for the preview buffer to prevent conflict
-    vim.api.nvim_buf_set_name(bufnr, "neo-tree-preview-" .. vim.fn.bufnr())
-  end
 
   -- @Added to disable 'winfixbuf' when preview
   -- pcall(vim.api.nvim_win_set_option, self.winid, "winfixbuf", false)
