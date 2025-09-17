@@ -308,7 +308,17 @@ end
 function Preview:setBuffer(bufnr)
   local eventignore = vim.opt.eventignore
   vim.opt.eventignore:append("BufEnter,BufWinEnter")
-  -- pcall(vim.api.nvim_win_set_option, self.winid, "winfixbuf", false) -- @Added to disable 'winfixbuf' when preview
+
+  -- @Added. Ensure that the preview buffer has a unique name to avoid conflict with outline.nvim
+  local buffer_name = vim.api.nvim_buf_get_name(bufnr)
+  if buffer_name == "" then
+    -- Set a unique name for the preview buffer to prevent conflict
+    vim.api.nvim_buf_set_name(bufnr, "neo-tree-preview-" .. vim.fn.bufnr())
+  end
+
+  -- @Added to disable 'winfixbuf' when preview
+  -- pcall(vim.api.nvim_win_set_option, self.winid, "winfixbuf", false)
+  
   vim.api.nvim_win_set_buf(self.winid, bufnr)
   if self.config.use_image_nvim then
     try_load_image_nvim_buf(self.winid, bufnr)
