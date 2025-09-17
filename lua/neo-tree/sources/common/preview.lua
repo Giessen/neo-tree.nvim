@@ -127,7 +127,7 @@ function Preview:preview(bufnr, start_pos, end_pos)
     -- Clear any highlight in the preview
     self:clearHighlight()
     
-    -- return -- skip preview for Neo-tree internal buffers
+    return -- skip preview for Neo-tree internal buffers
   end
   --
 
