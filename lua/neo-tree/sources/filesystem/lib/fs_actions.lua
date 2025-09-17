@@ -420,7 +420,7 @@ end
 -- Delete Node
 M.delete_node = function(path, callback, noconfirm)
   local _, name = utils.split_path(path)
-  local msg = string.format("Are you sure you want to delete '%s' permanently?", name)
+  local msg = string.format("Are you sure you want to permanently delete '%s'?", name)
 
   log.trace("Deleting node: ", path)
   local _type = "unknown"
@@ -545,7 +545,7 @@ M.delete_node = function(path, callback, noconfirm)
 end
 
 M.delete_nodes = function(paths_to_delete, callback)
-  local msg = "Are you sure you want to delete " .. #paths_to_delete .. " items?"
+  local msg = "Are you sure you want to permanently delete " .. #paths_to_delete .. " items?"
   inputs.confirm(msg, function(confirmed)
     if not confirmed then
       return
