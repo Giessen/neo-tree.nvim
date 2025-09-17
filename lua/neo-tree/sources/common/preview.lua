@@ -118,7 +118,7 @@ function Preview:preview(bufnr, start_pos, end_pos)
   local buf_bt = vim.bo[bufnr].buftype
   
   if buf_ft == "neo-tree" or buf_bt == "nofile" then
-    vim.notify("Neo-tree preview skipped: internal buffer", vim.log.levels.INFO)
+    vim.notify("Neo-tree preview skipped: internal buffer", vim.log.levels.WARN)
     return -- skip preview for Neo-tree internal buffers
   end
   --
