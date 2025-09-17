@@ -402,6 +402,12 @@ Preview.toggle = function(state)
   else
     -- @Added. For some reason, the neo-tree buffer is saved locally with a name like 'neo-tree filesystem [1]'. 
     -- This will confuse the previewer window handling and should be prevented to get previewed.
+    local buf = state and state.buf
+    if not buf or not vim.api.nvim_buf_is_valid(buf) then
+      vim.notify("Neo-tree preview skipped: invalid buffer", vim.log.levels.WARN)
+      return
+    end
+    
     local buf_ft = vim.bo[buf].filetype
     local buf_bt = vim.bo[buf].buftype
     
