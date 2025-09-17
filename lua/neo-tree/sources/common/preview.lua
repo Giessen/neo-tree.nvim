@@ -120,12 +120,12 @@ function Preview:preview(bufnr, start_pos, end_pos)
   
   if buf_ft == "neo-tree" or buf_bt == "nofile" then
     vim.notify("Neo-tree preview skipped: internal buffer", vim.log.levels.WARN)
-    -- Clear the preview content (empty the preview window)
-    if self.winid and vim.api.nvim_win_is_valid(self.winid) then
-      vim.api.nvim_win_set_buf(self.winid, vim.api.nvim_create_buf(false, true))  -- Create an empty buffer
-    end
-    -- Clear any highlight in the preview
-    self:clearHighlight()
+    -- -- Clear the preview content (empty the preview window)
+    -- if self.winid and vim.api.nvim_win_is_valid(self.winid) then
+    --   vim.api.nvim_win_set_buf(self.winid, vim.api.nvim_create_buf(false, true))  -- Create an empty buffer
+    -- end
+    -- -- Clear any highlight in the preview
+    -- self:clearHighlight()
     
     return -- skip preview for Neo-tree internal buffers
   end
@@ -180,6 +180,12 @@ function Preview:revert()
       vim.api.nvim_win_set_option(self.winid, "foldenable", self.truth.options.foldenable)
     end
     vim.api.nvim_win_set_var(self.winid, "neo_tree_preview", 0)
+  end
+
+  -- @ADDED
+  if not self.truth or not self.truth.bufnr then
+    vim.notify("Neo-tree preview revert skipped: no saved state", vim.log.levels.WARN)
+    return
   end
 
   local bufnr = self.truth.bufnr
