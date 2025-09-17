@@ -420,7 +420,7 @@ end
 -- Delete Node
 M.delete_node = function(path, callback, noconfirm)
   local _, name = utils.split_path(path)
-  local msg = string.format("Are you sure you want to delete '%s'?", name)
+  local msg = string.format("Are you sure you want to delete '%s' permanently?", name)
 
   log.trace("Deleting node: ", path)
   local _type = "unknown"

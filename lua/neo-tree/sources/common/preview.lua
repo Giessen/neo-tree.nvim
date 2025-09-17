@@ -290,7 +290,7 @@ end
 function Preview:setBuffer(bufnr)
   local eventignore = vim.opt.eventignore
   vim.opt.eventignore:append("BufEnter,BufWinEnter")
-  pcall(vim.api.nvim_win_set_option, self.winid, "winfixbuf", false) -- @Added to disable 'winfixbuf' when preview
+  -- pcall(vim.api.nvim_win_set_option, self.winid, "winfixbuf", false) -- @Added to disable 'winfixbuf' when preview
   vim.api.nvim_win_set_buf(self.winid, bufnr)
   if self.config.use_image_nvim then
     try_load_image_nvim_buf(self.winid, bufnr)
