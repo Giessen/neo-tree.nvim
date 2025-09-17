@@ -119,7 +119,15 @@ function Preview:preview(bufnr, start_pos, end_pos)
   
   if buf_ft == "neo-tree" or buf_bt == "nofile" then
     vim.notify("Neo-tree preview skipped: internal buffer", vim.log.levels.WARN)
-    return -- skip preview for Neo-tree internal buffers
+    -- Clear the preview content (empty the preview window)
+    if self.winid and vim.api.nvim_win_is_valid(self.winid) then
+      vim.api.nvim_win_set_buf(self.winid, vim.api.nvim_create_buf(false, true))  -- Create an empty buffer
+    end
+    
+    -- Clear any highlight in the preview
+    self:clearHighlight()
+    
+    -- return -- skip preview for Neo-tree internal buffers
   end
   --
 
