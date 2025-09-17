@@ -114,14 +114,6 @@ end
 ---@param end_pos table? The (0-indexed) ending position of the previewed text. May be absent
 function Preview:preview(bufnr, start_pos, end_pos)
   -- @Added. For some reason, the neo-tree buffer is saved locally with a name like 'neo-tree filesystem [1]'. 
-  -- This will confuse the previewer window handling and should be prevented to get previewed.
-  -- local buf = state and state.buf
-  -- if not buf or not vim.api.nvim_buf_is_valid(buf) then
-  --   vim.notify("Neo-tree preview skipped: invalid buffer", vim.log.levels.WARN)
-  --   return
-  -- end
-
-  -- local buf = vim.api.nvim_win_get_buf(state.winid)
   local buf_ft = vim.bo[bufnr].filetype
   local buf_bt = vim.bo[bufnr].buftype
   
@@ -418,24 +410,6 @@ Preview.toggle = function(state)
   if toggle_state then
     Preview.hide()
   else
-    -- @Added. For some reason, the neo-tree buffer is saved locally with a name like 'neo-tree filesystem [1]'. 
-    -- This will confuse the previewer window handling and should be prevented to get previewed.
-    -- local buf = state and state.buf
-    -- if not buf or not vim.api.nvim_buf_is_valid(buf) then
-    --   vim.notify("Neo-tree preview skipped: invalid buffer", vim.log.levels.WARN)
-    --   return
-    -- end
-
-    -- local buf = vim.api.nvim_win_get_buf(state.winid)
-    -- local buf_ft = vim.bo[buf].filetype
-    -- local buf_bt = vim.bo[buf].buftype
-    -- 
-    -- if buf_ft == "neo-tree" or buf_bt == "nofile" then
-    --   vim.notify("Neo-tree preview skipped: internal buffer", vim.log.levels.INFO)
-    --   return -- skip preview for Neo-tree internal buffers
-    -- end
-    --
-    
     Preview.show(state)
     if instance and instance.active then
       toggle_state = true
