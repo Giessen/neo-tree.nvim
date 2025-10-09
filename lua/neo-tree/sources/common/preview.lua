@@ -303,8 +303,9 @@ local function try_load_image_nvim_buf(winid, bufnr)
     local info = debug.getinfo(1, "S")
     local source = info.source:sub(2)
     vim.schedule(function()
-      vim.notify(string.format("WARNING: filetype not 'image_nvim' (source: %s)", source), vim.log.levels.INFO)
-      -- FIXME: .WARN results 'Press ENTER or type command to continue'
+      -- vim.notify(string.format("WARNING: filetype not 'image_nvim' (source: %s)", source), vim.log.levels.WARN)
+      vim.notify("WARNING: filetype not 'image_nvim' (source: ..lua/neo-tree/sources/common/preview.lua)", vim.log.levels.WARN)
+      -- vim.api.nvim_echo({ { "WARNING: filetype not 'image_nvim'", "WarningMsg" } }, false, {})
     end)
   end
   local success, mod = pcall(require, "image")
