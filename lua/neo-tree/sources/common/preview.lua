@@ -297,10 +297,9 @@ end
 ---@param winid number
 ---@param bufnr number
 local function try_load_image_nvim_buf(winid, bufnr)
-  if vim.bo[bufnr].filetype ~= "image_nvim" then
-    print("xxx1")
-    return false
-  end
+  -- if vim.bo[bufnr].filetype ~= "image_nvim" then
+  --   return false
+  -- end
   local success, mod = pcall(require, "image")
   if not success or not mod.hijack_buffer then
     local image_nvim_url = "https://github.com/3rd/image.nvim"
