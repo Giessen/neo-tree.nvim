@@ -304,7 +304,7 @@ local function try_load_image_nvim_buf(winid, bufnr)
     local source = info.source:sub(2)
     vim.schedule(function()
       -- vim.notify("WARNING: filetype not 'image_nvim' (source: " .. source .. ")", vim.log.levels.WARN)
-      vim.api.nvim_echo({ { "WARNING: filetype not 'image_nvim' (source: " .. source .. ")", "WarningMsg" } }, false, {})
+      vim.api.nvim_echo({ { "WARNING: filetype not 'image_nvim'", "WarningMsg" } }, false, {})
     end)
   end
   local success, mod = pcall(require, "image")
