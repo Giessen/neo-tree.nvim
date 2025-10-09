@@ -298,6 +298,7 @@ end
 ---@param bufnr number
 local function try_load_image_nvim_buf(winid, bufnr)
   if vim.bo[bufnr].filetype ~= "image_nvim" then
+    print("xxx1")
     return false
   end
   local success, mod = pcall(require, "image")
@@ -320,7 +321,6 @@ function Preview:setBuffer(bufnr)
   
   vim.api.nvim_win_set_buf(self.winid, bufnr)
   if self.config.use_image_nvim then
-    print("xxx1")
     try_load_image_nvim_buf(self.winid, bufnr)
   end
   if self.config.use_float then
