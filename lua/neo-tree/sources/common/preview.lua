@@ -302,7 +302,7 @@ local function try_load_image_nvim_buf(winid, bufnr)
     -- @ADDED. warn instead of giveup.
     local info = debug.getinfo(1, "S")
     local source = info.source:sub(2)
-    vim.notify("WARNING: filetype not 'image_nvim' (source: " .. source .. ")", vim.log.levels.WARN)
+    vim.notify("WARNING: filetype not 'image_nvim' (source: " .. source .. ")", vim.log.levels.WARN, { timeout = 5 })
   end
   local success, mod = pcall(require, "image")
   if not success or not mod.hijack_buffer then
