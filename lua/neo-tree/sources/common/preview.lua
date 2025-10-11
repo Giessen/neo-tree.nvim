@@ -298,11 +298,11 @@ end
 ---@param bufnr number
 local function try_load_image_nvim_buf(winid, bufnr)
   if vim.bo[bufnr].filetype ~= "image_nvim" then
-    -- return false
+    return false
     -- @ADDED. warn instead of giveup.
-    local info = debug.getinfo(1, "S")
-    local source = info.source:sub(2)
-    vim.notify("WARNING: filetype not 'image_nvim' (source: ..lua/neo-tree/sources/common/preview.lua)", vim.log.levels.WARN)
+    -- local info = debug.getinfo(1, "S")
+    -- local source = info.source:sub(2)
+    -- vim.notify("WARNING: filetype not 'image_nvim' (source: ..lua/neo-tree/sources/common/preview.lua)", vim.log.levels.WARN)
   end
   local success, mod = pcall(require, "image")
   if not success or not mod.hijack_buffer then
