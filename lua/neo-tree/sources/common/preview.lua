@@ -133,6 +133,24 @@ end
 ---@param start_pos integer[]? The (0-indexed) starting position of the previewed text. May be absent.
 ---@param end_pos integer[]? The (0-indexed) ending position of the previewed text. May be absent
 function Preview:preview(bufnr, start_pos, end_pos)
+  -- @Added. For some reason, the neo-tree buffer is saved locally with a name like 'neo-tree filesystem [1]'. 
+  -- Don't preview this kind of file.
+  local buf_ft = vim.bo[bufnr].filetype
+  local buf_bt = vim.bo[bufnr].buftype
+  
+  if buf_ft == "neo-tree" or buf_bt == "nofile" then
+    vim.notify("Neo-tree preview skipped: internal buffer", vim.log.levels.WARN)
+    -- -- Clear the preview content (empty the preview window)
+    -- if self.winid and vim.api.nvim_win_is_valid(self.winid) then
+    --   vim.api.nvim_win_set_buf(self.winid, vim.api.nvim_create_buf(false, true))  -- Create an empty buffer
+    -- end
+    -- -- Clear any highlight in the preview
+    -- self:clearHighlight()
+    
+    return -- skip preview for Neo-tree internal buffers
+  end
+  --
+  
   if self.is_neo_tree_window then
     log.warn("Could not find appropriate window for preview")
     return
@@ -176,6 +194,12 @@ function Preview:revert()
       vim.wo[self.winid].foldenable = self.truth.options.foldenable
     end
     vim.api.nvim_win_set_var(self.winid, "neo_tree_preview", 0)
+  end
+
+  -- @ADDED
+  if not self.truth or not self.truth.bufnr then
+    vim.notify("Neo-tree preview revert skipped: no saved state", vim.log.levels.WARN)
+    return
   end
 
   local bufnr = self.truth.bufnr
@@ -381,6 +405,9 @@ function Preview:setBuffer(bufnr)
   end
   local eventignore = vim.opt.eventignore
   vim.opt.eventignore:append("BufEnter,BufWinEnter")
+
+  -- @ADDED to disable 'winfixbuf' when preview
+  -- pcall(vim.api.nvim_win_set_option, self.winid, "winfixbuf", false)
 
   repeat
     ---@class neotree.event.args.PREVIEW_BEFORE_RENDER
