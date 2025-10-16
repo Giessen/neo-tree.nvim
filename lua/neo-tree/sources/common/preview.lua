@@ -172,6 +172,14 @@ function Preview:preview(bufnr, start_pos, end_pos)
 
   self:reveal()
   self:highlight_preview_range()
+
+  -- @ADDED to show indication message on winbar, if not use_float
+  if not self.config.use_float then
+    local winid = vim.fn.win_findbuf(self.bufnr)[1] or vim.fn.win_findbuf(bufnr)[1]
+    if winid then
+      vim.api.nvim_win_set_option(winid, "winbar", "%#TitleString#" .. self.title) -- %=***: right align (remove to left align)
+    end
+  end
 end
 
 ---Reverts the preview and inactivates it, restoring the preview window to its previous state.
@@ -268,6 +276,7 @@ function Preview:findWindow(state)
   else
     winid, is_neo_tree_window = utils.get_appropriate_window(state)
     self.bufnr = vim.api.nvim_win_get_buf(winid)
+    self.title = state.config.title or "Neo-tree Preview" -- @ADDED title to member vars
   end
 
   if winid == self.winid then
@@ -387,9 +396,8 @@ events.subscribe({
     local preview = args.preview
     local bufnr = args.bufnr
 
-    if preview.config.use_image_nvim and try_load_image_nvim_buf(preview.winid, bufnr) then
-      -- calling the try method twice should be okay here, image.nvim should cache the image and displaying the image takes
-      -- really long anyways
+    -- @CHANGED. load image_nvim buff once instead (otherwise, floating window would be blank)
+    if preview.config.use_image_nvim then --and try_load_image_nvim_buf(preview.winid, bufnr) then
       vim.api.nvim_win_set_buf(preview.winid, bufnr)
       return { handled = try_load_image_nvim_buf(preview.winid, bufnr) }
     end
