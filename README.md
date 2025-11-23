@@ -86,7 +86,7 @@ There are also some optional plugins that work with Neo-tree:
   - If both snacks.nvim and image.nvim are installed. Neo-tree currently will try
     to preview with snacks.nvim first, then try image.nvim.
 - [s1n7ax/nvim-window-picker](https://github.com/s1n7ax/nvim-window-picker) for
-  `_with_window_picker` keymaps..
+  `_with_window_picker` keymaps.
 
 
 ### mini.deps example:

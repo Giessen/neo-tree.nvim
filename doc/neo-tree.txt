@@ -339,7 +339,7 @@ x    = cut_to_clipboard:     Mark file to be cut (moved).
 
 p    = paste_from_clipboard: Copy/move each marked file to the selected folder.
 
-<C-r> = clear_clipboard: Clears the clipboard.
+<C-r> = clear_clipboard:     Clears the clipboard.
 
 c    = copy:                 Copy the selected file or directory.
                              Also accepts the optional `config.show_path` option
@@ -1939,6 +1939,7 @@ state to a string. The colors of the popup border are controlled by the
 `NeoTreeFloatBorder` highlight group.If you you use the special `NC` option for
 `popup_border_style`, the title bar of that popup uses the `NeoTreeTitleBar`
 highlight group.
+
 
 CLIPBOARD                                                   *neo-tree-clipboard*
 

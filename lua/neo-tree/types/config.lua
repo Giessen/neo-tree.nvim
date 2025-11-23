@@ -105,8 +105,6 @@
 
 ---@alias neotree.Config.BorderStyle "NC"|"rounded"|"single"|"solid"|"double"|""
 
----@alias neotree.Config.SortFunction fun(a: NuiTree.Node, b: NuiTree.Node):boolean?
-
 ---@class (exact) neotree.Config.Base
 ---@field sources string[]
 ---@field add_blank_line_at_top boolean

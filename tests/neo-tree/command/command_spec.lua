@@ -151,7 +151,7 @@ describe("Command", function()
       require("neo-tree.command").execute({
         toggle = true,
       })
-      verify.filesystem_tree_node_is(testfile)      
+      verify.filesystem_tree_node_is(testfile)
     end)
   end)
 
