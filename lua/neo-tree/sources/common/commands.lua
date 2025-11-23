@@ -653,6 +653,13 @@ M.paste_from_clipboard = function(state, callback)
   end
 end
 
+M.clear_clipboard = function(state)
+  state.clipboard = {}
+  log.info("Cleared clipboard")
+  events.fire_event(events.NEO_TREE_CLIPBOARD_CHANGED, state)
+  renderer.redraw(state)
+end
+
 ---Copies a node to a new location, using typed input.
 ---@param callback fun(parent_node: NuiTree.Node)
 M.copy = function(state, callback)
